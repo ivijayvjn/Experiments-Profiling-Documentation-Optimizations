@@ -7,7 +7,7 @@ Experimented optimization :
 
 2.Before and After Optimization Results : 
 
-Lessons Learned : 
+Lessons Learnt : 
 
 
 ************************************************************************************************************************************************************************************************
@@ -29,7 +29,7 @@ b.Before and After Optimization Results :
 
 **[View Full Report](./01.Kernel_Fusion)**
 
-Lessons Learned : 
+Lessons Learnt : 
 
 This will be a lengthy one as I'll be recording all my experiences here as this is my first experiment documentation : 
 
@@ -67,7 +67,7 @@ b.Before and After Optimization Results :
 
 **[View Full Report](./2.Inference_Scaling_KV_Cache_Efficiency)**
 
-Lessons Learned :
+Lessons Learnt :
 
 -Everytime I use LLMs I could see the stuttering of Tokens other than the first token and sometimes I've been the unlucky user of having the output tokens delayed.Right now I guess I was sitting at the p99 may be🤣🤣
 
