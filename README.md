@@ -10,7 +10,7 @@ Experimented optimization :
 
 ************************************************************************************************************************************************************************************************
 
-### <mark> Experimented optimization : 1.Kernel Fusion </mark> 
+### <mark> Experimented optimization : 1.Kernel Fusion(Eager vs Torch.compile) </mark> 
 
 a.Hardware/GPU used : NVIDIA RTX A5000(Ampere Architecture) : https://images.nvidia.com/aem-dam/en-zz/Solutions/data-center/nvidia-ampere-architecture-whitepaper.pdf
 
