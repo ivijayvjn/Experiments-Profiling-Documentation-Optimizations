@@ -84,6 +84,8 @@ Lessons Learnt :
 
 2.Results/Understanding : 
 
+***Disclamier : Intentionally used a smaller batch***
+
 2a.Software - Level Transparency(Pytorch Profiler & NVTX) : By using the NVTX markers hook,we are able to gain the logical observability.We can see exactly which python function correspond to GPU activities,transforming the unknown side of the training loop into a labeled,chronological sequence of events
 
 2b.Perfetto Trace inspection : Perfetto provides dispatch observability as it allows us to measure microscopic view of the timeline and have show us how launch kernel was having higher number of calls which in turns inferred the launch overhead 
