@@ -93,18 +93,35 @@ print(prof.key_averages().table(sort_by="self_cuda_time_total",
 
 Terminal Output : 
 
-![10_tokens_wo_kv_cache](/./3.Gpt-2_profiling_nvtx_nsight_perfetto/Assets/)
+![Terminal_output](/./3.Diagnostic%20using%20Pytorch%20profiler,NVTX%20and%20Nsight%20Suite/Assets/Terminal_output_result.png)
 
 As per the output attached,observed that eager mode gets kick in and the higher number of calls for aten::mm and aten::layer_norm indicates a Kernel launch overhead bottleneck.The GPU is being provided many small requests rathen that being given a large efficient blocks of work.We've already done an experiment on Kernel fusion where we analysed how torch.compile executes graph and eliminates this launch overhead.This in turn time and time proved me illustrating why techniques like Kernel fusion and torch.compile are necessary to saturate high-performance GPUs
 
 Perfetto/chrome tracing : 
+
+![Perfetto_output](/./3.Diagnostic%20using%20Pytorch%20profiler,NVTX%20and%20Nsight%20Suite/Assets/perfetto_diagnostic_summary.png)
 
 As per the above quantitative analysis perfetto pivot table,I can observe a higher degree of operator fragmentation.specifically,Cudalaunchkernel was invoked 992 times in a single iteration.The higher frequency of memory management ops (aten :: copy and aten :: to)relative to actual compute kernels confirms that the execution is launch latency limited.The CPU spends a significant amount of time managing 900+ small tasks rather than dispatiching fewer,larger,more efficient compute blocks
 
 
 Nsys : 
 
+![Nsys_output](/./3.Diagnostic%20using%20Pytorch%20profiler,NVTX%20and%20Nsight%20Suite/Assets/nsys_diagnostic_summary.png)
+
+
 As per the above we can see the same observation that this is launch bound.As these each kernel is computationally thin,the overhead of launching the kernel outweighs the benefit of GPU acceleration.This explains why the A5000 is under utilized.The CPU cannot feed the GPU fast enough  
+
+7.Profiling Evidence :
+
+All the Code,snippets,reports uploaded : https://github.com/ivijayvjn/Experiments-Profiling-Documentation-Optimizations/tree/3b07413a4de4dbd4618ac53f1586a034882fd74f/3.Diagnostic%20using%20Pytorch%20profiler%2CNVTX%20and%20Nsight%20Suite
+
+8.Lessons Learnt : 
+
+1.Multi-Level Observability : Using the pytorch profiler with NVTX markers can map high level python logic to low level execution order,identyfying where the code structure creates overhead.
+
+2.Visual Trace Analysis : Used perfetto to visualize execution timelines and quantify bottlenecls,specifically discovering that Cudalaunch kernel calls were dominating the CPU time.
+
+3.Hardware-Level Diagnostics : Used NVIDIA Nsight systems for system wide telemetry,confirming that system wide statistics can be observed to find the bottlenecks 
 
 Commands Used : 
 
