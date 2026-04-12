@@ -77,3 +77,19 @@ Lessons Learnt :
 
 
 ************************************************************************************************************************************************************************************************
+
+### <mark> Experiment : 3.Observability of gpt-2 using pytorch profiler,NVTX,Nvidia Nsight systems and perfetto </mark>
+
+1.Hardware/GPU used : NVIDIA RTX A5000(Ampere Architecture) : https://github.com/ivijayvjn/Experiments-Profiling-Documentation-Optimizations/tree/d3473a3b6846b0b5d9e879595371242825cbab21/3.Diagnostic%20using%20Pytorch%20profiler%2CNVTX%20and%20Nsight%20Suite
+
+2.Results/Understanding : 
+
+2a.Software - Level Transparency(Pytorch Profiler & NVTX) : By using the NVTX markers hook,we are able to gain the logical observability.We can see exactly which python function correspond to GPU activities,transforming the unknown side of the training loop into a labeled,chronological sequence of events
+
+2b.Perfetto Trace inspection : Perfetto provides dispatch observability as it allows us to measure microscopic view of the timeline and have show us how launch kernel was having higher number of calls which in turns inferred the launch overhead 
+
+2c.System wide : Nsys captured the ground truth of the hardware.The 64.2 % cudakernellaunch statistic in the nsight summary proved that the system was launch bound.This confirmed that the CPU spent the majority of its time on administrative overhead rather than actual computation.
+
+Lessons Learnt : I wanted understand the observability stack and how they work in to show us the complete skeleton of how the hardware works and how we can identify the bottlenecks for optimization..I wanted to understand these tools because the most importatnt part of optimization is to find the bottleneck with evidence so then we can optimize without doing any guess work or doing anti methods always mentioned by brendan gregg
+
+**[View Full Report](./3.Diagnostic%20using%20Pytorch%20profiler,NVTX%20and%20Nsight%20Suite)**
