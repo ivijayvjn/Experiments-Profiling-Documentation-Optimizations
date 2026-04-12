@@ -84,7 +84,7 @@ Lessons Learnt :
 
 2.Results/Understanding : 
 
-***Disclamier : Intentionally used a smaller batch***
+***Disclaimer : Intentionally used a smaller batch***
 
 2a.Software - Level Transparency(Pytorch Profiler & NVTX) : By using the NVTX markers hook,we are able to gain the logical observability.We can see exactly which python function correspond to GPU activities,transforming the unknown side of the training loop into a labeled,chronological sequence of events
 
