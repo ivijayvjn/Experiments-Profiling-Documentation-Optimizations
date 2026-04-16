@@ -29,7 +29,9 @@ b.Before and After Optimization Results :
 Key Insights : 
 
 --> Kernel fusion significantly reduces DRAM traffic and kernel launch overhead.
+
 --> Increased arithmetic intensity shifts the workload toward better compute utilization.
+
 --> Cloud GPU environments may limit access to low-level profiling features.
 
 
@@ -77,7 +79,9 @@ Objective : Provide multi-layer observability of a GPT-2 training step using PyT
 Key Findings : 
 
 --> Software-Level Transparency: NVTX markers map high-level Python operations to GPU activities.
+
 --> Dispatch Observability: Perfetto traces reveal excessive kernel launches.
+
 --> System-Level Insight: Nsight Systems identified the workload as launch-bound, with ~64% of time spent on cudaKernelLaunch.
 
 
